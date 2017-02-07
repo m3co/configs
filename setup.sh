@@ -8,6 +8,8 @@ script_run_directory=$(command pwd)
 paths=(".eslintrc"
        ".eslintignore"
        ".jsdoc.json"
+       ".babelrc"
+       "gulpfile.js"
       )
 
 for path in "${paths[@]}"; do

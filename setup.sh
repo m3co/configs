@@ -1,14 +1,17 @@
 #!/bin/bash
 
-echo 'Creating symbolic links for config files..'
+echo "Creating symbolic links for config files.."
 
-paths=('.eslintrc'
-       '.eslintignore'
-       '.jsdoc.json'
+config_directory=$(command dirname -- "${0}")
+script_run_directory=$(command pwd)
+
+paths=(".eslintrc"
+       ".eslintignore"
+       ".jsdoc.json"
       )
 
 for path in "${paths[@]}"; do
-  ln -s "$path" ../
+  ln -s "${config_directory}/${path}" "${script_run_directory}"
 done
 
-echo 'Done..'
+echo "Done.." 

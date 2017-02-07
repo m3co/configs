@@ -8,7 +8,7 @@ paths=('.eslintrc'
       )
 
 for path in "${paths[@]}"; do
-  ln -s "configs/$path" .
+  ln -s "$path" ../
 done
 
 echo 'Done..'

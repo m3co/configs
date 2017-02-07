@@ -1,0 +1,33 @@
+{
+  "extends": "eslint:recommended",
+
+  "env": {
+    "browser": 1
+  },
+ 
+  "globals": {
+    "componentHandler": true,
+    "Promise": true
+  },
+
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+ 
+  "rules": {
+    "quotes": [1, "single"],
+    "eqeqeq": 2,
+    "strict": 2,
+    "indent": ["warn", 2],
+    "semi": [2],
+    "no-bitwise": 2,
+    "curly": 2,
+    "no-caller": 2,
+    "dot-notation": 1,
+    "max-len": ["warn", 90, { "ignoreComments": true }],
+    "linebreak-style": ["error", "unix"],
+    "no-multiple-empty-lines": ["warn", { "max": 1 }],
+    "block-spacing": ["warn", "always"],
+    "no-trailing-spaces": 1
+  }
+}

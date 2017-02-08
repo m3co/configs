@@ -8,6 +8,7 @@ const babel    = require('gulp-babel');
 const connect  = require('gulp-connect');
 const jsdoc    = require('gulp-jsdoc3');
 const gulpIf   = require('gulp-if');
+const argv     = require('yargs').argv;
 
 const paths = {
   src:    './src',
@@ -18,6 +19,8 @@ const paths = {
   csssrc: ['./src/**/*.css'],
   jssrc:  ['./src/**/*.js']
 };
+
+const port = (argv.port === undefined) ? 8080 : argv.port;
 
 function isFixed(file) {
   // Has ESLint fixed the file contents?
@@ -77,7 +80,7 @@ gulp.task('connect', () => {
   connect.server({
     root: paths.dst,
     livereload: true,
-    port: 9003
+    port: port
   });
 });
 

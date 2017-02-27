@@ -10,6 +10,18 @@ This repo is not intended to be posted through npm, bower or similar. It's inten
 3. In existing project folder run `./resources/configs/setup.sh`
 4. Commit changes in existing project
 
+Additionally, set the port at _package.json_
+```json
+{
+  "scripts": {
+    "prestart": "npm install",
+    "postinstall": "bower install",
+    "start": "gulp --port 9003",
+    "doc": "gulp doc"
+  }
+}
+```
+
 ## Style
 
 Here's a list of tags that should be in comment's commit:

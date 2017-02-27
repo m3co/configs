@@ -9,6 +9,7 @@ paths=(".eslintrc"
        ".eslintignore"
        ".jsdoc.json"
        ".babelrc"
+       ".gitignore"
        "gulpfile.js"
       )
 
@@ -16,4 +17,4 @@ for path in "${paths[@]}"; do
   ln -s "${config_directory}/${path}" "${script_run_directory}"
 done
 
-echo "Done.." 
+echo "Done.."

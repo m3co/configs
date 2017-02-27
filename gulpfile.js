@@ -1,14 +1,15 @@
 'use strict';
 
-const gulp     = require('gulp');
-const csslint  = require('gulp-csslint');
-const htmlhint = require("gulp-htmlhint");
-const eslint   = require('gulp-eslint');
-const babel    = require('gulp-babel');
-const connect  = require('gulp-connect');
-const jsdoc    = require('gulp-jsdoc3');
-const gulpIf   = require('gulp-if');
-const argv     = require('yargs').argv;
+const gulp        = require('gulp');
+const csslint     = require('gulp-csslint');
+const htmlhint    = require("gulp-htmlhint");
+const eslint      = require('gulp-eslint');
+const babel       = require('gulp-babel');
+const connect     = require('gulp-connect');
+const jsdoc       = require('gulp-jsdoc3');
+const gulpIf      = require('gulp-if');
+const argv        = require('yargs').argv;
+const fileinclude = require('gulp-file-include');
 
 const paths = {
   src:    './src',
@@ -33,10 +34,9 @@ gulp.task('reload', function () {
 });
 
 gulp.task('doc', () => {
-  var config = require('./.jsdoc.json');
-  return gulp.src(['./README.md']
-    .concat(paths.jssrc), { read: false })
-    .pipe(jsdoc(config));
+  // var config = require('./.jsdoc.json');
+  // return gulp.src(['./README.md'].concat(paths.jssrc))
+  //   .pipe(jsdoc(config));
 });
 
 gulp.task('css-lint', () => {
@@ -53,6 +53,10 @@ gulp.task('html-hint', () => {
 
 gulp.task('js-lint', () => {
   return gulp.src(paths.jssrc, { base: './' })
+    .pipe(fileinclude({
+      prefix: '@@',
+      indent: true
+    }))
     .pipe(eslint({fix: true}))
     .pipe(eslint.format())
     .pipe(gulpIf(isFixed, gulp.dest('./')));
@@ -60,6 +64,10 @@ gulp.task('js-lint', () => {
 
 gulp.task('js-copy', () => {
   return gulp.src(paths.jssrc)
+    .pipe(fileinclude({
+      prefix: '@@',
+      indent: true
+    }))
     .pipe(babel())
     .pipe(gulp.dest(paths.dst));
 });

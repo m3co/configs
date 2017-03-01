@@ -17,4 +17,11 @@ for path in "${paths[@]}"; do
   ln -s "${config_directory}/${path}" "${script_run_directory}"
 done
 
-echo "Done.."
+
+echo "Installing dependencies.."
+
+npm init -y
+npm i -D babel-preset-es2015 gulp gulp-babel gulp-connect gulp-csslint gulp-eslint gulp-file-include gulp-htmlhint gulp-if gulp-jsdoc3 yargs
+
+
+echo 'Done..'

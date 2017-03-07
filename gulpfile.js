@@ -21,6 +21,11 @@ const paths = {
   jssrc:  ['./src/**/*.js']
 };
 
+const fileincludeOpts = {
+  prefix: '//@@',
+  indent: true
+}
+
 const port = (argv.port === undefined) ? 8080 : argv.port;
 
 // function isFixed(file) {
@@ -34,9 +39,10 @@ gulp.task('reload', function () {
 });
 
 gulp.task('doc', () => {
-  // var config = require('./.jsdoc.json');
-  // return gulp.src(['./README.md'].concat(paths.jssrc))
-  //   .pipe(jsdoc(config));
+  var config = require('./.jsdoc.json');
+  return gulp.src(['./README.md'].concat(paths.jssrc))
+    .pipe(fileinclude(fileincludeOpts))
+    .pipe(jsdoc(config));
 });
 
 gulp.task('css-lint', () => {
@@ -53,10 +59,7 @@ gulp.task('html-hint', () => {
 
 gulp.task('js-lint', () => {
   return gulp.src(paths.jssrc, { base: './' })
-    .pipe(fileinclude({
-      prefix: '@@',
-      indent: true
-    }))
+    .pipe(fileinclude(fileincludeOpts))
     .pipe(eslint())
     .pipe(eslint.format());
     // .pipe(gulpIf(isFixed, gulp.dest('./')));
@@ -64,10 +67,7 @@ gulp.task('js-lint', () => {
 
 gulp.task('js-copy', () => {
   return gulp.src(paths.jssrc)
-    .pipe(fileinclude({
-      prefix: '@@',
-      indent: true
-    }))
+    .pipe(fileinclude(fileincludeOpts))
     .pipe(babel())
     .pipe(gulp.dest(paths.dst));
 });

@@ -23,10 +23,10 @@ const paths = {
 
 const port = (argv.port === undefined) ? 8080 : argv.port;
 
-function isFixed(file) {
-  // Has ESLint fixed the file contents?
-  return file.eslint != null && file.eslint.fixed;
-}
+// function isFixed(file) {
+//   // Has ESLint fixed the file contents?
+//   return file.eslint != null && file.eslint.fixed;
+// }
 
 gulp.task('reload', function () {
   return gulp.src(paths.js, { read: false })
@@ -57,9 +57,9 @@ gulp.task('js-lint', () => {
       prefix: '@@',
       indent: true
     }))
-    .pipe(eslint({fix: true}))
-    .pipe(eslint.format())
-    .pipe(gulpIf(isFixed, gulp.dest('./')));
+    .pipe(eslint())
+    .pipe(eslint.format());
+    // .pipe(gulpIf(isFixed, gulp.dest('./')));
 });
 
 gulp.task('js-copy', () => {
@@ -80,7 +80,7 @@ gulp.task('css-copy', () => {
 gulp.task('watch', () => {
   gulp.watch(paths.js, ['reload']);
   gulp.watch(paths.html, ['html-hint', 'doc', 'reload']);
-  gulp.watch(paths.jssrc, ['js-lint', 'js-copy', 'doc', 'reload']);
+  gulp.watch(paths.jssrc, ['js-copy', 'doc', 'reload']);
   gulp.watch(paths.csssrc, ['css-lint', 'css-copy', 'reload']);
 });
 
@@ -93,7 +93,6 @@ gulp.task('connect', () => {
 });
 
 gulp.task('default', [
-  'js-lint',
   'css-lint',
   'html-hint',
   'css-copy',

@@ -18,7 +18,13 @@ const paths = {
   html:   ['./demo/**/*.html', './test/**/*.html'],
   js:     ['./demo/**/*.js', './test/**/*.js', './src/**/*.js'],
   csssrc: ['./src/**/*.css'],
-  jssrc:  ['./src/**/*.js']
+  jssrc:  ['./src/**/*.js'],
+  test:   {
+    src: {
+      layouts: 'test/_layouts/**/*.js',
+      includes: 'test/_includes/**/*.js'
+    }
+  }
 };
 
 const fileincludeOpts = {
@@ -77,11 +83,18 @@ gulp.task('css-copy', () => {
     .pipe(gulp.dest(paths.dst));
 });
 
+gulp.task('build-tests', () => {
+  return gulp.src(paths.test.src.layouts)
+    .pipe(fileinclude(fileincludeOpts))
+    .pipe(gulp.dest('test'));
+});
+
 gulp.task('watch', () => {
   gulp.watch(paths.js, ['reload']);
   gulp.watch(paths.html, ['html-hint', 'doc', 'reload']);
   gulp.watch(paths.jssrc, ['js-copy', 'doc', 'reload']);
   gulp.watch(paths.csssrc, ['css-lint', 'css-copy', 'reload']);
+  gulp.watch([paths.test.src.layouts, paths.test.src.includes], ['build-tests', 'reload']);
 });
 
 gulp.task('connect', () => {
@@ -97,6 +110,7 @@ gulp.task('default', [
   'html-hint',
   'css-copy',
   'js-copy',
+  'build-tests',
   'doc',
   'watch',
   'connect'

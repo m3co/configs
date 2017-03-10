@@ -92,7 +92,7 @@ gulp.task('build-tests', () => {
 gulp.task('watch', () => {
   gulp.watch(paths.js, ['reload']);
   gulp.watch(paths.html, ['html-hint', 'doc', 'reload']);
-  gulp.watch(paths.jssrc, ['js-copy', 'doc', 'reload']);
+  gulp.watch(paths.jssrc.concat(['includes/**/*.js']), ['js-copy', 'doc', 'reload']);
   gulp.watch(paths.csssrc, ['css-lint', 'css-copy', 'reload']);
   gulp.watch([paths.test.src.layouts, paths.test.src.includes], ['build-tests', 'reload']);
 });
